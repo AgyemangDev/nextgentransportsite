@@ -22,14 +22,7 @@ const BookingSummary = ({ booking }) => {
           <Calendar size={18} className="text-[#00205B] mr-3 mt-0.5" />
           <div>
             <div className="text-sm text-gray-500">Travel Date & Time</div>
-            <div className="font-medium">
-              {new Date(booking.date).toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </div>
+           
             <div className="text-sm">
               {booking.bus?.departureTime} - {booking.bus?.arrivalTime}
             </div>
@@ -46,17 +39,6 @@ const BookingSummary = ({ booking }) => {
           </div>
         </div>
 
-        <div className="flex items-start">
-          <CreditCard size={18} className="text-[#00205B] mr-3 mt-0.5" />
-          <div>
-            <div className="text-sm text-gray-500">Payment Method</div>
-            <div className="font-medium">
-              {booking.paymentMethod === "mobile_money"
-                ? "Mobile Money"
-                : "Credit Card"}
-            </div>
-          </div>
-        </div>
 
         <div className="border-t pt-4 mt-4">
           <div className="flex justify-between mb-2">

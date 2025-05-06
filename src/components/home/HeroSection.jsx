@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MapPin, Calendar, ArrowRight, Shield, Clock } from "lucide-react";
+import { MapPin, ArrowRight, Shield, Clock } from "lucide-react";
 
 const HeroSection = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     from: "",
     to: "",
-    date: "",
   });
 
   const handleChange = (e) => {
@@ -22,7 +21,6 @@ const HeroSection = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Pass the form data to the booking page
     navigate("/booking", { state: formData });
   };
 
@@ -38,11 +36,6 @@ const HeroSection = () => {
     "Wa",
     "Bolgatanga",
   ];
-
-  // Get tomorrow's date in YYYY-MM-DD format for the date input min value
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const tomorrowFormatted = tomorrow.toISOString().split("T")[0];
 
   return (
     <section className="relative bg-[#00205B] text-white">
@@ -106,7 +99,7 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              <div className="mb-4">
+              <div className="mb-6">
                 <label className="block text-sm font-medium mb-1">To</label>
                 <div className="relative">
                   <MapPin
@@ -127,27 +120,6 @@ const HeroSection = () => {
                       </option>
                     ))}
                   </select>
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <label className="block text-sm font-medium mb-1">
-                  Travel Date
-                </label>
-                <div className="relative">
-                  <Calendar
-                    size={18}
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  />
-                  <input
-                    type="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                    min={tomorrowFormatted}
-                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#00205B]"
-                    required
-                  />
                 </div>
               </div>
 

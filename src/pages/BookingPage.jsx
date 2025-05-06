@@ -4,8 +4,8 @@ import { Calendar, MapPin, Users, CreditCard, CheckCircle } from "lucide-react";
 import BusSelector from "../components/booking/BusSelector";
 import SeatSelector from "../components/booking/SeatSelector";
 import PassengerForm from "../components/booking/PassengerForm";
-import PaymentForm from "../components/booking/PaymentForm";
 import BookingSummary from "../components/booking/BookingSummary";
+import TripDetailsStep from "../components/booking/TripDetails";
 import { useBooking } from "../context/BookingContext";
 
 const BookingPage = () => {
@@ -22,10 +22,7 @@ const BookingPage = () => {
       name: "",
       email: "",
       phone: "",
-      idType: "National ID",
-      idNumber: "",
     },
-    paymentMethod: "mobile_money",
   });
 
   // Update booking context when form data changes
@@ -40,7 +37,6 @@ const BookingPage = () => {
         ...prev,
         from: location.state.from || prev.from,
         to: location.state.to || prev.to,
-        date: location.state.date || prev.date,
       }));
     }
   }, [location.state]);
@@ -104,94 +100,13 @@ const BookingPage = () => {
     switch (currentStep) {
       case 1:
         return (
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-bold text-[#00205B] mb-4">
-              Trip Details
-            </h2>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                nextStep();
-              }}
-            >
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">From</label>
-                <div className="relative">
-                  <MapPin
-                    size={18}
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  />
-                  <select
-                    name="from"
-                    value={formData.from}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#00205B]"
-                    required
-                  >
-                    <option value="">Select departure location</option>
-                    <option value="Accra">Accra</option>
-                    <option value="Kumasi">Kumasi</option>
-                    <option value="Takoradi">Takoradi</option>
-                    <option value="Tamale">Tamale</option>
-                    <option value="Cape Coast">Cape Coast</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">To</label>
-                <div className="relative">
-                  <MapPin
-                    size={18}
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  />
-                  <select
-                    name="to"
-                    value={formData.to}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#00205B]"
-                    required
-                  >
-                    <option value="">Select destination</option>
-                    <option value="Accra">Accra</option>
-                    <option value="Kumasi">Kumasi</option>
-                    <option value="Takoradi">Takoradi</option>
-                    <option value="Tamale">Tamale</option>
-                    <option value="Cape Coast">Cape Coast</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <label className="block text-sm font-medium mb-1">
-                  Travel Date
-                </label>
-                <div className="relative">
-                  <Calendar
-                    size={18}
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  />
-                  <input
-                    type="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#00205B]"
-                    required
-                  />
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-[#00205B] text-white py-2 px-4 rounded-md hover:bg-[#00307A] transition-colors"
-              >
-                Continue to Select Bus
-              </button>
-            </form>
-          </div>
+          <TripDetailsStep
+            formData={formData}
+            handleChange={handleChange}
+            nextStep={nextStep}
+          />
         );
-      case 2:
+         case 2:
         return (
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-bold text-[#00205B] mb-4">
@@ -280,25 +195,6 @@ const BookingPage = () => {
           </div>
         );
       case 5:
-        return (
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-bold text-[#00205B] mb-4">Payment</h2>
-            <PaymentForm
-              paymentMethod={formData.paymentMethod}
-              onPaymentMethodChange={handlePaymentMethodChange}
-              onSubmit={handleSubmit}
-            />
-            <div className="flex justify-between mt-6">
-              <button
-                onClick={prevStep}
-                className="px-4 py-2 border border-[#00205B] text-[#00205B] rounded-md hover:bg-gray-50"
-              >
-                Back
-              </button>
-            </div>
-          </div>
-        );
-      case 6:
         return (
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <div className="flex justify-center mb-4">

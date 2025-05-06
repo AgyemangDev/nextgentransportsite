@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Clock, Users, Wifi, Coffee } from "lucide-react";
 
+const busImage = "https://a1carsrental.com/wp-content/uploads/45-seat-coach-bus-rental-accra-ghana-1c-7.jpg";
 const BusSelector = ({ from, to, date, selectedBus, onBusSelect }) => {
   const [buses, setBuses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -83,12 +84,8 @@ const BusSelector = ({ from, to, date, selectedBus, onBusSelect }) => {
           {buses.length} buses available
         </div>
         <div className="text-sm font-medium">
-          {from} to {to} •{" "}
-          {new Date(date).toLocaleDateString("en-US", {
-            weekday: "short",
-            month: "short",
-            day: "numeric",
-          })}
+          {from} to {to} 
+        
         </div>
       </div>
 
@@ -102,6 +99,11 @@ const BusSelector = ({ from, to, date, selectedBus, onBusSelect }) => {
           }`}
           onClick={() => onBusSelect(bus)}
         >
+            <img
+    src={busImage}
+    alt="Bus"
+    className="absolute top-2 right-2 w-16 h-auto opacity-70 pointer-events-none"
+  />
           <div className="flex flex-col md:flex-row md:items-center justify-between">
             <div className="mb-3 md:mb-0">
               <h3 className="font-semibold text-lg">{bus.name}</h3>
