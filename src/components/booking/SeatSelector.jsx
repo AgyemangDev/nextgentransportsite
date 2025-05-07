@@ -8,29 +8,29 @@ const SeatSelector = ({ bus, selectedSeat, onSeatSelect, nextStep, prevStep }) =
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!bus) return;
-
-    // Set loading while processing seats
+    if (!bus || !Array.isArray(bus.seats)) return;
+  
     setLoading(true);
-    
+  
     try {
-      // Use the seats data from the bus object selected from Firebase
-      // Instead of creating mock seats, use the actual seats from the bus object
-      if (bus.seats && Array.isArray(bus.seats)) {
-        console.log("Processing bus seats:", bus.seats);
-        setSeats(bus.seats);
-      } else {
-        console.error("Bus seats data is missing or not in expected format", bus);
-        // Fallback to empty array if seats are not available
-        setSeats([]);
-      }
+      const totalSeats = bus.seats.length;
+      const lastFive = bus.seats.slice(-5);
+      const rest = bus.seats.slice(0, totalSeats - 5);
+      const half = Math.ceil(rest.length / 2);
+  
+      const left = rest.slice(0, half).map((seat) => ({ ...seat, position: "left" }));
+      const right = rest.slice(half).map((seat) => ({ ...seat, position: "right" }));
+      const back = lastFive.map((seat) => ({ ...seat, position: "back" }));
+  
+      setSeats([...left, ...right, ...back]);
     } catch (error) {
       console.error("Error processing bus seats:", error);
       setSeats([]);
     }
-    
+  
     setLoading(false);
   }, [bus]);
+  
 
   if (loading) {
     return (

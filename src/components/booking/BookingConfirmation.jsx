@@ -1,7 +1,9 @@
 import { CheckCircle } from "lucide-react";
 import BookingSummary from "./BookingSummary";
+import { useNavigate } from "react-router-dom";
 
 const BookingConfirmation = ({ booking }) => {
+  const navigate = useNavigate();
   return (
     <div className="grid md:grid-cols-3 gap-6">
       <div className="md:col-span-2">
@@ -14,7 +16,7 @@ const BookingConfirmation = ({ booking }) => {
           </h2>
           <p className="text-gray-600 mb-6">
             Your booking has been confirmed. A confirmation email has been
-            sent to {booking.passengerDetails.email} or check your spam.
+            sent to <strong>{booking.passengerDetails.email}</strong> or check <strong> your spam</strong> .
           </p>
           
           <div className="text-left mb-6 border p-4 rounded bg-gray-50">
@@ -27,7 +29,9 @@ const BookingConfirmation = ({ booking }) => {
           </div>
           
           <div className="flex justify-center gap-4">
-            <button className="px-4 py-2 bg-[#00205B] text-white rounded-md hover:bg-[#00307A] transition-colors">
+            <button
+             onClick={() => navigate("/")}
+            className="px-4 py-2 bg-[#00205B] text-white rounded-md hover:bg-[#00307A] transition-colors">
               Return to Home
             </button>
           </div>

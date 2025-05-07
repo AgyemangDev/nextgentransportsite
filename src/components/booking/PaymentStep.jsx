@@ -1,5 +1,4 @@
 import BookingSummary from "./BookingSummary";
-import { submitBooking } from "../../../utils/bookingUtils";
 import { useState } from "react";
 import axios from "axios";
 
@@ -100,8 +99,8 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
           </p>
 
           <p className="text-sm text-gray-500 mb-6">
-            Keep the confirmation email from <strong>NextGenTransport</strong> and payment receipt from Paystack. It will include your
-            booking number, seat number, and trip information.
+            Keep the confirmation email from <strong>NextGenTransport</strong> and payment receipt from <strong>Paystack</strong>. It will include your
+            booking number, seat number, and trip information. 
           </p>
 
           <div className="flex justify-between mt-6">
