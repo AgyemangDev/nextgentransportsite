@@ -8,7 +8,7 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
 
   const verifyPayment = async (reference) => {
     try {
-      const verifyRes = await axios.post("http://localhost:5000/api/payment/verify", {
+      const verifyRes = await axios.post("https://nextgenbackend-i9ck.onrender.com/api/payment/verify", {
         reference,
         bookingData: booking,
       });
