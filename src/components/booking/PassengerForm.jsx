@@ -2,10 +2,16 @@
 
 import { User, Mail, Phone } from "lucide-react";
 
-const PassengerForm = ({ passengerDetails, onChange }) => {
+const PassengerForm = ({ passengerDetails, onChange, nextStep, prevStep }) => {
+  const formIsValid =
+    passengerDetails.name?.trim() &&
+    passengerDetails.email?.trim() &&
+    passengerDetails.phone?.trim();
+
   return (
     <div>
       <div className="space-y-4">
+        {/* Full Name */}
         <div>
           <label className="block text-sm font-medium mb-1">Full Name</label>
           <div className="relative">
@@ -25,10 +31,9 @@ const PassengerForm = ({ passengerDetails, onChange }) => {
           </div>
         </div>
 
+        {/* Email */}
         <div>
-          <label className="block text-sm font-medium mb-1">
-            Email Address
-          </label>
+          <label className="block text-sm font-medium mb-1">Email Address</label>
           <div className="relative">
             <Mail
               size={18}
@@ -49,6 +54,7 @@ const PassengerForm = ({ passengerDetails, onChange }) => {
           </p>
         </div>
 
+        {/* Phone */}
         <div>
           <label className="block text-sm font-medium mb-1">Phone Number</label>
           <div className="relative">
@@ -67,6 +73,27 @@ const PassengerForm = ({ passengerDetails, onChange }) => {
             />
           </div>
         </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="mt-6 flex justify-between">
+        <button
+          onClick={prevStep}
+          className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+        >
+          Back
+        </button>
+        <button
+          onClick={() => nextStep()}
+          disabled={!formIsValid}
+          className={`px-4 py-2 rounded text-white transition-colors ${
+            formIsValid
+              ? "bg-[#00205B] hover:bg-[#001A4D]"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

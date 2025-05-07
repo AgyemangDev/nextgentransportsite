@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useReducer, useEffect } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 // Create context
 const BookingContext = createContext();
@@ -16,11 +16,7 @@ const initialState = {
     name: "",
     email: "",
     phone: "",
-    idType: "National ID",
-    idNumber: "",
   },
-  paymentMethod: "mobile_money",
-  tickets: [],
 };
 
 // Reducer function
@@ -34,17 +30,6 @@ const bookingReducer = (state, action) => {
     case "RESET_BOOKING":
       return {
         ...initialState,
-        tickets: state.tickets, // Preserve tickets when resetting booking
-      };
-    case "ADD_TICKET":
-      return {
-        ...state,
-        tickets: [...state.tickets, action.payload],
-      };
-    case "DELETE_TICKET":
-      return {
-        ...state,
-        tickets: state.tickets.filter((ticket) => ticket.id !== action.payload),
       };
     default:
       return state;
@@ -54,20 +39,6 @@ const bookingReducer = (state, action) => {
 // Provider component
 export const BookingProvider = ({ children }) => {
   const [state, dispatch] = useReducer(bookingReducer, initialState);
-
-  // Load tickets from localStorage on initialization
-  useEffect(() => {
-    const savedTickets = localStorage.getItem("transportgo-tickets");
-    if (savedTickets) {
-      const tickets = JSON.parse(savedTickets);
-      dispatch({ type: "UPDATE_BOOKING", payload: { tickets } });
-    }
-  }, []);
-
-  // Save tickets to localStorage when they change
-  useEffect(() => {
-    localStorage.setItem("transportgo-tickets", JSON.stringify(state.tickets));
-  }, [state.tickets]);
 
   return (
     <BookingContext.Provider value={{ state, dispatch }}>

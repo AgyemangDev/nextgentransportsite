@@ -1,6 +1,7 @@
 import { Calendar, MapPin, User, CreditCard } from "lucide-react";
 
 const BookingSummary = ({ booking }) => {
+  console.log(booking)
   return (
     <div className="border rounded-lg overflow-hidden">
       <div className="bg-[#00205B] text-white p-4">
@@ -24,7 +25,7 @@ const BookingSummary = ({ booking }) => {
             <div className="text-sm text-gray-500">Travel Date & Time</div>
            
             <div className="text-sm">
-              {booking.bus?.departureTime} - {booking.bus?.arrivalTime}
+              {booking.bus?.departureTime}
             </div>
           </div>
         </div>
@@ -36,6 +37,7 @@ const BookingSummary = ({ booking }) => {
             <div className="font-medium">{booking.passengerDetails.name}</div>
             <div className="text-sm">{booking.passengerDetails.email}</div>
             <div className="text-sm">{booking.passengerDetails.phone}</div>
+            <div className="text-sm">Seat {booking.seat.number}</div>
           </div>
         </div>
 

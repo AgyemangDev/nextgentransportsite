@@ -3,56 +3,33 @@
 import { useState, useEffect } from "react";
 import { Info } from "lucide-react";
 
-const SeatSelector = ({ bus, selectedSeat, onSeatSelect }) => {
+const SeatSelector = ({ bus, selectedSeat, onSeatSelect, nextStep, prevStep }) => {
   const [seats, setSeats] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!bus) return;
 
-    // In a real app, this would be an API call to get seat availability
-    // Simulating API call with setTimeout
+    // Set loading while processing seats
     setLoading(true);
-    setTimeout(() => {
-      // Generate seats based on bus configuration
-      // For this example, we'll create a 53-seater bus with 24 double seats on each side and 5 at the back
- 
-      const mockSeats = [];
-
-      // Generate seat data
-      // 24 double seats on left (odd numbers)
-      for (let i = 1; i <= 47; i += 2) {
-        mockSeats.push({
-          id: i,
-          number: i,
-          position: "left",
-          status: Math.random() > 0.3 ? "available" : "booked",
-        });
+    
+    try {
+      // Use the seats data from the bus object selected from Firebase
+      // Instead of creating mock seats, use the actual seats from the bus object
+      if (bus.seats && Array.isArray(bus.seats)) {
+        console.log("Processing bus seats:", bus.seats);
+        setSeats(bus.seats);
+      } else {
+        console.error("Bus seats data is missing or not in expected format", bus);
+        // Fallback to empty array if seats are not available
+        setSeats([]);
       }
-
-      // 24 double seats on right (even numbers)
-      for (let i = 2; i <= 48; i += 2) {
-        mockSeats.push({
-          id: i,
-          number: i,
-          position: "right",
-          status: Math.random() > 0.3 ? "available" : "booked",
-        });
-      }
-
-      // 5 seats at the back (49-53)
-      for (let i = 49; i <= 53; i++) {
-        mockSeats.push({
-          id: i,
-          number: i,
-          position: "back",
-          status: Math.random() > 0.3 ? "available" : "booked",
-        });
-      }
-
-      setSeats(mockSeats);
-      setLoading(false);
-    }, 1000);
+    } catch (error) {
+      console.error("Error processing bus seats:", error);
+      setSeats([]);
+    }
+    
+    setLoading(false);
   }, [bus]);
 
   if (loading) {
@@ -70,6 +47,11 @@ const SeatSelector = ({ bus, selectedSeat, onSeatSelect }) => {
       </div>
     );
   }
+
+  // Group seats by their position
+  const leftSeats = seats.filter(seat => seat.position === "left");
+  const rightSeats = seats.filter(seat => seat.position === "right");
+  const backSeats = seats.filter(seat => seat.position === "back");
 
   const handleSeatClick = (seat) => {
     if (seat.status === "available") {
@@ -104,19 +86,24 @@ const SeatSelector = ({ bus, selectedSeat, onSeatSelect }) => {
         </div>
       </div>
 
-      <div className="relative bg-gray-100 p-6 rounded-lg">
-        {/* Bus front */}
-        <div className="w-1/2 h-12 mx-auto mb-8 flex items-center justify-center border-2 border-gray-400 rounded-t-3xl">
-          <span className="text-sm font-medium">Driver</span>
+      {seats.length === 0 ? (
+        <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <p className="text-center text-yellow-700">
+            No seat information available for this bus. Please contact customer support.
+          </p>
         </div>
+      ) : (
+        <div className="relative bg-gray-100 p-6 rounded-lg">
+          {/* Bus front */}
+          <div className="w-1/2 h-12 mx-auto mb-8 flex items-center justify-center border-2 border-gray-400 rounded-t-3xl">
+            <span className="text-sm font-medium">Driver</span>
+          </div>
 
-        {/* Seats container */}
-        <div className="flex justify-between">
-          {/* Left side seats */}
-          <div className="grid grid-cols-2 gap-2">
-            {seats
-              .filter((seat) => seat.position === "left")
-              .map((seat) => (
+          {/* Seats container */}
+          <div className="flex justify-between">
+            {/* Left side seats */}
+            <div className="grid grid-cols-2 gap-2">
+              {leftSeats.map((seat) => (
                 <div
                   key={seat.id}
                   onClick={() => handleSeatClick(seat)}
@@ -131,16 +118,14 @@ const SeatSelector = ({ bus, selectedSeat, onSeatSelect }) => {
                   {seat.number}
                 </div>
               ))}
-          </div>
+            </div>
 
-          {/* Aisle */}
-          <div className="w-8"></div>
+            {/* Aisle */}
+            <div className="w-8"></div>
 
-          {/* Right side seats */}
-          <div className="grid grid-cols-2 gap-2">
-            {seats
-              .filter((seat) => seat.position === "right")
-              .map((seat) => (
+            {/* Right side seats */}
+            <div className="grid grid-cols-2 gap-2">
+              {rightSeats.map((seat) => (
                 <div
                   key={seat.id}
                   onClick={() => handleSeatClick(seat)}
@@ -155,30 +140,31 @@ const SeatSelector = ({ bus, selectedSeat, onSeatSelect }) => {
                   {seat.number}
                 </div>
               ))}
+            </div>
           </div>
-        </div>
 
-        {/* Back seats */}
-        <div className="mt-6 flex justify-center gap-2">
-          {seats
-            .filter((seat) => seat.position === "back")
-            .map((seat) => (
-              <div
-                key={seat.id}
-                onClick={() => handleSeatClick(seat)}
-                className={`w-10 h-10 flex items-center justify-center rounded-md cursor-pointer text-sm font-medium ${
-                  selectedSeat?.id === seat.id
-                    ? "bg-[#00205B] text-white"
-                    : seat.status === "available"
-                    ? "bg-green-500 text-white hover:bg-green-600"
-                    : "bg-red-500 text-white cursor-not-allowed"
-                }`}
-              >
-                {seat.number}
-              </div>
-            ))}
+          {/* Back seats */}
+          {backSeats.length > 0 && (
+            <div className="mt-6 flex justify-center gap-2">
+              {backSeats.map((seat) => (
+                <div
+                  key={seat.id}
+                  onClick={() => handleSeatClick(seat)}
+                  className={`w-10 h-10 flex items-center justify-center rounded-md cursor-pointer text-sm font-medium ${
+                    selectedSeat?.id === seat.id
+                      ? "bg-[#00205B] text-white"
+                      : seat.status === "available"
+                      ? "bg-green-500 text-white hover:bg-green-600"
+                      : "bg-red-500 text-white cursor-not-allowed"
+                  }`}
+                >
+                  {seat.number}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
+      )}
 
       {selectedSeat && (
         <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
@@ -186,6 +172,24 @@ const SeatSelector = ({ bus, selectedSeat, onSeatSelect }) => {
           <p className="text-sm text-gray-600">Price: GHC {bus.price}</p>
         </div>
       )}
+
+      <div className="mt-6 flex justify-between">
+        <button
+          onClick={prevStep}
+          className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+        >
+          Back
+        </button>
+        <button
+          onClick={() => nextStep()}
+          disabled={!selectedSeat}
+          className={`px-4 py-2 rounded text-white ${
+            selectedSeat ? "bg-[#00205B] hover:bg-[#001A47]" : "bg-gray-400 cursor-not-allowed"
+          }`}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,17 +1,25 @@
 import { MapPin, Calendar } from "lucide-react";
 
+const locations = [
+  "Kumasi KNUST Campus",
+  "Accra - Circle",
+  "Accra - Madina",
+  "Tema",
+  "Tarkwa",
+  "Tamale",
+];
+
 const TripDetailsStep = ({ formData, handleChange, nextStep }) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-xl font-bold text-[#00205B] mb-4">
-        Trip Details
-      </h2>
+      <h2 className="text-xl font-bold text-[#00205B] mb-4">Trip Details</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           nextStep();
         }}
       >
+        {/* FROM */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">From</label>
           <div className="relative">
@@ -27,15 +35,16 @@ const TripDetailsStep = ({ formData, handleChange, nextStep }) => {
               required
             >
               <option value="">Select departure location</option>
-              <option value="Accra">Accra</option>
-              <option value="Kumasi">Kumasi</option>
-              <option value="Takoradi">Takoradi</option>
-              <option value="Tamale">Tamale</option>
-              <option value="Cape Coast">Cape Coast</option>
+              {locations.map((loc) => (
+                <option key={loc} value={loc}>
+                  {loc}
+                </option>
+              ))}
             </select>
           </div>
         </div>
 
+        {/* TO */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">To</label>
           <div className="relative">
@@ -51,11 +60,11 @@ const TripDetailsStep = ({ formData, handleChange, nextStep }) => {
               required
             >
               <option value="">Select destination</option>
-              <option value="Accra">Accra</option>
-              <option value="Kumasi">Kumasi</option>
-              <option value="Takoradi">Takoradi</option>
-              <option value="Tamale">Tamale</option>
-              <option value="Cape Coast">Cape Coast</option>
+              {locations.map((loc) => (
+                <option key={loc} value={loc}>
+                  {loc}
+                </option>
+              ))}
             </select>
           </div>
         </div>

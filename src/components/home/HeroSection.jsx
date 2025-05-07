@@ -25,16 +25,12 @@ const HeroSection = () => {
   };
 
   const locations = [
-    "Accra",
-    "Kumasi",
-    "Takoradi",
+    "Kumasi KNUST Campus",
+    "Accra - Circle",
+    "Accra - Madina",
+    "Tema",
+    "Tarkwa",
     "Tamale",
-    "Cape Coast",
-    "Koforidua",
-    "Ho",
-    "Sunyani",
-    "Wa",
-    "Bolgatanga",
   ];
 
   return (
