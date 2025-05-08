@@ -61,6 +61,7 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
         metadata: {
           busId: bus.id,
           seatId: seat.id,
+          
           seatNumber: seat.number,
           name: passengerDetails.name,
           email: passengerDetails.email,
@@ -68,6 +69,7 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
           from,
           to,
           departureTime: bus.departureTime,
+          departureDate: bus.pickupDate,
         },
         callback: function (response) {
           verifyPayment(response.reference);
