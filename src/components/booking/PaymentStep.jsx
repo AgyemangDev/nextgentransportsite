@@ -69,7 +69,6 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
           from,
           to,
           departureTime: bus.departureTime,
-          departureDate: bus.pickupDate,
         },
         callback: function (response) {
           verifyPayment(response.reference);
