@@ -7,7 +7,8 @@ import ContactPage from "./pages/ContactPage";
 import TermsPage from "./pages/TermsPage";
 import { BookingProvider } from "./context/BookingContext";
 import MyTicketsPage from "./pages/MyTicketsPage";
-import "./App.css"
+import "./App.css";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/terms" element={<TermsPage />} />
               <Route path="/my-tickets" element={<MyTicketsPage />} />
+              <Route path="/about-us" element={<AboutUs />} />
             </Routes>
           </main>
           <Footer />

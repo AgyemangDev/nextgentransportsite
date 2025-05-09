@@ -42,10 +42,10 @@ const Navbar = () => {
               Contact Us
             </Link>
             <Link
-              to="/my-tickets"
+              to="/about-us"
               className="px-3 py-2 rounded-md text-sm font-medium hover:bg-[#00307A]"
             >
-              My Tickets
+              About Us
             </Link>
             <Link
               to="/terms"
