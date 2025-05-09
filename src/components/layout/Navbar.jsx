@@ -92,11 +92,11 @@ const Navbar = () => {
               Contact Us
             </Link>
             <Link
-              to="/my-tickets"
+              to="/about-us"
               className="block px-3 py-2 rounded-md text-base font-medium hover:bg-[#00307A]"
               onClick={() => setIsMenuOpen(false)}
             >
-              My Tickets
+              About Us
             </Link>
             <Link
               to="/terms"

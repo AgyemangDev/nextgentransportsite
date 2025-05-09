@@ -52,6 +52,13 @@ const BookingPage = () => {
   const nextStep = () => setCurrentStep((prev) => prev + 1);
   const prevStep = () => setCurrentStep((prev) => prev - 1);
 
+  useEffect(() => {
+    setTimeout(() => {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 0);
+  }, [currentStep]);
+
   // Map step number to component
   const stepComponents = {
     1: <TripDetailsStep
