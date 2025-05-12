@@ -79,10 +79,10 @@ const ContactPage = () => {
             Send us an email and we'll respond as soon as possible
           </p>
           <a
-            href="mailto:info@transportgo.com"
+            href="mailto:nextgentransportservices@gmail.com"
             className="text-[#00205B] font-medium hover:underline"
           >
-            info@transportgo.com
+            nextgentransportservices@gmail.com
           </a>
         </div>
 

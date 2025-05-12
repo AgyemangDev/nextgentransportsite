@@ -46,7 +46,7 @@ const HeroSection = () => {
             </h1>
             <p className="text-lg mb-8 max-w-lg">
               Book your bus tickets online and enjoy a seamless travel
-              experience with TransportGo. Safe, reliable, and comfortable
+              experience with NextGen Transport Services. Safe, reliable, and comfortable
               transportation.
             </p>
             <div className="hidden lg:block">
