@@ -26,6 +26,7 @@ const HeroSection = () => {
 
   const locations = [
     "Kumasi KNUST Campus",
+    "Obuasi KNUST Campus",
     "Accra - Circle",
     "Accra - Madina",
     "Tema",

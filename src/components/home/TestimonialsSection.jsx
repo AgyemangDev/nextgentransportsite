@@ -12,6 +12,11 @@ const testimonials = [
     author: "Akua Nyamekye – Natural Resources, Level 200",
   },
   {
+  content:
+    "Traveling from Kumasi to Obuasi Campus used to be a hassle, but this service has made everything seamless. I can book ahead, choose my seat, and the ride is always punctual and comfortable. It’s perfect for students like me who commute regularly.",
+  author: "Ama Konadu – Biological Sciences, Obuasi Campus, Level 300",
+},
+  {
     content:
       "As an engineering student from Tema, I value safety and punctuality. The buses are in great condition, and the drivers are professional.",
     author: "Yaw Manu – Electrical Engineering, Level 400",
@@ -26,6 +31,11 @@ const testimonials = [
       "I'm a Business Admin student in KNUST, and I often travel from Cape Coast. This platform makes it so easy to plan my trip—smooth booking and reliable buses.",
     author: "Kwame Baffour – Business Administration, Level 200",
   },
+  {
+  content:
+    "As a student based in Accra, getting to Obuasi Campus used to be stressful. But ever since I started using this platform, my trips have been stress-free. I just book online, board comfortably, and arrive safely. Highly recommended for all students.",
+  author: "Daniel Owusu – Computer Engineering, Obuasi Campus, Level 200",
+},
   {
     content:
       "I be fresher from Accra. First time I dey come KNUST, the bus carry we straight go Unity Hall gate. No confusion, no stress. Booking process be simple.",
