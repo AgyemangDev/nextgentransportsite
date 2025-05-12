@@ -25,15 +25,17 @@ const HeroSection = () => {
   };
 
   const locations = [
-    "Kumasi KNUST Campus",
-   "Kumasi - Asafo",
-    "Obuasi KNUST Campus",
+    // "Kumasi KNUST Campus",
+    // "Obuasi KNUST Campus",
     "Accra - Circle",
     "Accra - Madina",
     "Tema",
+     "Kumasi - Asafo",
     "Tarkwa",
     "Tamale",
   ];
+
+  const destinationOptions = ["Kumasi KNUST Campus", "Obuasi KNUST Campus"];
 
   return (
     <section className="relative bg-[#00205B] text-white">
@@ -112,7 +114,7 @@ const HeroSection = () => {
                     required
                   >
                     <option value="">Select destination</option>
-                    {locations.map((location) => (
+                    {destinationOptions.map((location) => (
                       <option key={location} value={location}>
                         {location}
                       </option>

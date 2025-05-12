@@ -212,13 +212,13 @@ const TermsPage = () => {
         <address className="not-italic text-gray-700 mt-2">
           NextGen Transport Services
           <br />
-          123 Transportation Road
+          KNUST Campus
           <br />
-          Accra, Ghana
+          Kumasi, Ghana
           <br />
-          Email: info@NextGen Transport Services.com
+          Email: nextgentransport@gmail.com
           <br />
-          Phone: +233 123 456 789
+          Phone: +233 55 937 4829
         </address>
       </div>
     </div>

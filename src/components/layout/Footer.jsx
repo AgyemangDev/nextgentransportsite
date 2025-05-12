@@ -1,12 +1,6 @@
 import { Link } from "react-router-dom";
-import {
-  Phone,
-  Mail,
-  MapPin,
-  Facebook,
-  Twitter,
-  Instagram,
-} from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
+import { FaTiktok, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -20,14 +14,29 @@ const Footer = () => {
               services across the country.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-gray-300">
-                <Facebook size={20} />
+              <a
+                href="https://www.tiktok.com/@next.gen.transport?_t=ZM-8wIgUD6t85d&_r=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gray-300"
+              >
+                <FaTiktok size={20} />
               </a>
-              <a href="#" className="hover:text-gray-300">
-                <Twitter size={20} />
+              <a
+                href="https://x.com/nextgentran?s=21"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gray-300"
+              >
+                <FaTwitter size={20} />
               </a>
-              <a href="#" className="hover:text-gray-300">
-                <Instagram size={20} />
+              <a
+                href="https://wa.link/bk1rpq"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gray-300"
+              >
+                <FaWhatsapp size={20} />
               </a>
             </div>
           </div>
@@ -68,37 +77,26 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="flex items-center text-sm">
                 <Phone size={16} className="mr-2" />
-                +233 123 456 789
+                0501969813
               </li>
               <li className="flex items-center text-sm">
                 <Mail size={16} className="mr-2" />
-                <h3>info@NextGenTransport.com</h3>
+                nextgentransport@gmail.com
               </li>
               <li className="flex items-start text-sm">
                 <MapPin size={16} className="mr-2 mt-1" />
-                <span>123 Transportation Road, Accra, Ghana</span>
+                <span>KNUST Campus, Kumasi, Ghana</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-8 pt-8 border-t border-[#00307A] flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm mb-4 md:mb-0">
+          <p className="text-sm mb-4 md:mb-0 flex flex-col md:flex-row items-center">
             &copy; {new Date().getFullYear()}
-            <h3>NextGen Transport</h3>
+            <span className="mx-1">NextGen Transport</span>
             <span className="ml-2">All rights reserved.</span>
           </p>
-          <div className="text-sm">
-            <span>Developed by </span>
-            <a
-              href="https://hostelhubb.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium hover:text-blue-300 underline transition-colors"
-            >
-              HostelHubb
-            </a>
-          </div>
         </div>
       </div>
     </footer>
