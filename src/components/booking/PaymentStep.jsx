@@ -53,7 +53,7 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
       const reference = `NGT_${Date.now()}`;
 
       const handler = window.PaystackPop.setup({
-        key: 'pk_test_f7ca7efd44d73e9d0e5e478a813f8dfe65bf6ebe',
+        key: 'pk_live_10140e876a8241e1e72aa7c47d03fa82ecd08ca8',
         email: passengerDetails.email,
         amount: bus.price * 100,
         currency: "GHS",
