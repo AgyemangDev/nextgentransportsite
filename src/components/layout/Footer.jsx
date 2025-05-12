@@ -13,6 +13,9 @@ const Footer = () => {
               Your trusted partner for comfortable and reliable transportation
               services across the country.
             </p>
+            <p className="text-bold">
+              Visit/Follow us:
+            </p>
             <div className="flex space-x-4">
               <a
                 href="https://www.tiktok.com/@next.gen.transport?_t=ZM-8wIgUD6t85d&_r=1"
