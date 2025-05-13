@@ -2,11 +2,11 @@ import { MapPin } from "lucide-react";
 
 const fromLocations = [
 // "Kumasi KNUST Campus",
-// "Obuasi KNUST Campus",
 "Accra - Circle",
 "Accra - Madina",
 "Tema",
 "Kumasi - Asafo",
+"Obuasi KNUST Campus",
 "Tarkwa",
 "Tamale",
 ];
