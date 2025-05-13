@@ -7,29 +7,54 @@ const SeatSelector = ({ bus, selectedSeat, onSeatSelect, nextStep, prevStep }) =
   const [seats, setSeats] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!bus || !Array.isArray(bus.seats)) return;
-  
-    setLoading(true);
-  
-    try {
-      const totalSeats = bus.seats.length;
+useEffect(() => {
+  if (!bus || !Array.isArray(bus.seats)) return;
+
+  setLoading(true);
+
+  try {
+    const totalSeats = bus.seats.length;
+    let left = [];
+    let right = [];
+    let back = [];
+
+    if (totalSeats === 34) {
+      const leftSeats = bus.seats.slice(0, 20).map((seat) => ({
+        ...seat,
+        position: "left",
+      }));
+      const rightSeats = bus.seats.slice(20, 30).map((seat) => ({
+        ...seat,
+        position: "right",
+      }));
+      const backSeats = bus.seats.slice(30).map((seat) => ({
+        ...seat,
+        position: "back",
+      }));
+
+      left = leftSeats;
+      right = rightSeats;
+      back = backSeats;
+    } else {
       const lastFive = bus.seats.slice(-5);
       const rest = bus.seats.slice(0, totalSeats - 5);
       const half = Math.ceil(rest.length / 2);
-  
-      const left = rest.slice(0, half).map((seat) => ({ ...seat, position: "left" }));
-      const right = rest.slice(half).map((seat) => ({ ...seat, position: "right" }));
-      const back = lastFive.map((seat) => ({ ...seat, position: "back" }));
-  
-      setSeats([...left, ...right, ...back]);
-    } catch (error) {
-      console.error("Error processing bus seats:", error);
-      setSeats([]);
+
+      left = rest.slice(0, half).map((seat) => ({ ...seat, position: "left" }));
+      right = rest.slice(half).map((seat) => ({ ...seat, position: "right" }));
+      back = lastFive.map((seat) => ({ ...seat, position: "back" }));
     }
-  
-    setLoading(false);
-  }, [bus]);
+
+    setSeats([...left, ...right, ...back]);
+  } catch (error) {
+    console.error("Error processing bus seats:", error);
+    setSeats([]);
+  }
+
+  setLoading(false);
+}, [bus]);
+
+
   
 
   if (loading) {
@@ -102,7 +127,7 @@ const SeatSelector = ({ bus, selectedSeat, onSeatSelect, nextStep, prevStep }) =
           {/* Seats container */}
           <div className="flex justify-between">
             {/* Left side seats */}
-            <div className="grid grid-cols-2 gap-2">
+          <div className={`grid ${bus.seats.length === 34 ? "grid-cols-2" : "grid-cols-2"} gap-2`}>
               {leftSeats.map((seat) => (
                 <div
                   key={seat.id}
@@ -124,7 +149,7 @@ const SeatSelector = ({ bus, selectedSeat, onSeatSelect, nextStep, prevStep }) =
             <div className="w-8"></div>
 
             {/* Right side seats */}
-            <div className="grid grid-cols-2 gap-2">
+           <div className={`grid ${bus.seats.length === 34 ? "grid-cols-1" : "grid-cols-2"} gap-2`}>
               {rightSeats.map((seat) => (
                 <div
                   key={seat.id}
