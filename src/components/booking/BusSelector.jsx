@@ -54,6 +54,9 @@ const BusSelector = ({ from, to, selectedBus, onBusSelect, nextStep, prevStep })
             {from} to {to} 
           </div>
         </div>
+        <p className="text-sm text-red-600 font-medium mb-4">
+  Note: The first bus is fully booked. Bus B is now filling.
+</p>
 
         {buses.map((bus) => {
   const totalSeats = bus.seats.length;
