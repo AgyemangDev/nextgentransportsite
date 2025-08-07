@@ -7,7 +7,6 @@ const destinationLocations = [
   "Koforidua",
   "Tema/Ashiaman",
   "Kasoa",
-  "Kumasi - Asafo",
   "Tarkwa",
   "Sunyani",
   "Takoradi/Cape Coast",
