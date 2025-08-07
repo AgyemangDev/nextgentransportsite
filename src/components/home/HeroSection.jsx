@@ -25,25 +25,19 @@ const HeroSection = () => {
   };
 
   const locations = [
-    // "Kumasi KNUST Campus",
-   
-    "Accra - Circle",
-    "Accra - Madina",
-    "Tema",
-    "Kumasi - Asafo",
-    "Obuasi KNUST Campus",
-    "Tarkwa",
-    "Tamale",
-  ];
-  const Destination = [
     "Kumasi KNUST Campus",
-  //  "Kumasi - Asafo",
     "Obuasi KNUST Campus",
-    // "Accra - Circle",
-    // "Accra - Madina",
-    // "Tema",
-    // "Tarkwa",
-    // "Tamale",
+  ];
+
+  const Destination = [
+  "Accra - Circle",
+  "Koforidua",
+  "Tema/Ashiaman",
+  "Kasoa",
+  "Kumasi - Asafo",
+  "Tarkwa",
+  "Sunyani",
+  "Takoradi/Cape Coast",
   ];
 
   return (

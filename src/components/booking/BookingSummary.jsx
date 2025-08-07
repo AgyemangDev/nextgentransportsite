@@ -42,20 +42,25 @@ const BookingSummary = ({ booking }) => {
         </div>
 
 
-        <div className="border-t pt-4 mt-4">
-          <div className="flex justify-between mb-2">
-            <span>Bus Fare</span>
-            <span>GHC {booking.bus?.price}.00</span>
-          </div>
-          <div className="flex justify-between mb-2 text-sm text-gray-500">
-            <span>Service Fee</span>
-            <span>GHC 0.00</span>
-          </div>
-          <div className="flex justify-between font-bold text-lg">
-            <span>Total</span>
-            <span>GHC {booking.bus?.price}.00</span>
-          </div>
-        </div>
+<div className="border-t pt-4 mt-4">
+  <div className="flex justify-between mb-2">
+    <span>Bus Fare</span>
+    <span>GHC {booking.bus?.price?.toFixed(2)}</span>
+  </div>
+  <div className="flex justify-between mb-2 text-sm text-gray-500">
+    <span>Service Fee (1.95%)</span>
+    <span>
+      GHC {(booking.bus?.price * 0.0195).toFixed(2)}
+    </span>
+  </div>
+  <div className="flex justify-between font-semibold mt-2">
+    <span>Total</span>
+    <span>
+      GHC {(booking.bus?.price * 1.0195).toFixed(2)}
+    </span>
+  </div>
+</div>
+
       </div>
     </div>
   );

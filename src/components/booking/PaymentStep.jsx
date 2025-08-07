@@ -119,7 +119,9 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
                 loading ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
-              {loading ? "Processing..." : `Pay ₵${booking.bus?.price}`}
+{loading
+  ? "Processing..."
+  : `Pay ₵${(booking.bus?.price * 1.0195).toFixed(2)}`}
             </button>
           </div>
         </div>

@@ -1,17 +1,17 @@
 import { MapPin } from "lucide-react";
 
-const fromLocations = [
-// "Kumasi KNUST Campus",
-"Accra - Circle",
-"Accra - Madina",
-"Tema",
-"Kumasi - Asafo",
-"Obuasi KNUST Campus",
-"Tarkwa",
-"Tamale",
-];
+const fromLocations = ["Kumasi KNUST Campus", "Obuasi KNUST Campus"];
 
-const destinationLocations = ["Kumasi KNUST Campus", "Obuasi KNUST Campus"];
+const destinationLocations = [
+  "Accra - Circle",
+  "Koforidua",
+  "Tema/Ashiaman",
+  "Kasoa",
+  "Kumasi - Asafo",
+  "Tarkwa",
+  "Sunyani",
+  "Takoradi/Cape Coast",
+];
 
 const TripDetailsStep = ({ formData, handleChange, nextStep }) => {
 return (
