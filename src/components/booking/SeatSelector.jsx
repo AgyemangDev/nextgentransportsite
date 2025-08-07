@@ -14,45 +14,38 @@ useEffect(() => {
 
   try {
     const totalSeats = bus.seats.length;
+    const rows = Math.floor((totalSeats - 5) / 3); // 2 left + 1 right per row
+    const backStartIndex = rows * 3;
+    const seatsCopy = [...bus.seats]; // Clone the seats array
+
     let left = [];
     let right = [];
     let back = [];
 
-    if (totalSeats === 34) {
-      const leftSeats = bus.seats.slice(0, 20).map((seat) => ({
-        ...seat,
-        position: "left",
-      }));
-      const rightSeats = bus.seats.slice(20, 30).map((seat) => ({
-        ...seat,
-        position: "right",
-      }));
-      const backSeats = bus.seats.slice(30).map((seat) => ({
-        ...seat,
-        position: "back",
-      }));
+    // Assign seats row by row
+    for (let i = 0; i < rows; i++) {
+      const left1 = seatsCopy[i * 3];
+      const left2 = seatsCopy[i * 3 + 1];
+      const right1 = seatsCopy[i * 3 + 2];
 
-      left = leftSeats;
-      right = rightSeats;
-      back = backSeats;
-    } else {
-      const lastFive = bus.seats.slice(-5);
-      const rest = bus.seats.slice(0, totalSeats - 5);
-      const half = Math.ceil(rest.length / 2);
-
-      left = rest.slice(0, half).map((seat) => ({ ...seat, position: "left" }));
-      right = rest.slice(half).map((seat) => ({ ...seat, position: "right" }));
-      back = lastFive.map((seat) => ({ ...seat, position: "back" }));
+      if (left1) left.push({ ...left1, position: "left" });
+      if (left2) left.push({ ...left2, position: "left" });
+      if (right1) right.push({ ...right1, position: "right" });
     }
+
+    // Last 5 go to the back
+    const backSeats = seatsCopy.slice(backStartIndex, backStartIndex + 5);
+    back = backSeats.map((seat) => ({ ...seat, position: "back" }));
 
     setSeats([...left, ...right, ...back]);
   } catch (error) {
-    console.error("Error processing bus seats:", error);
+    console.error("Error processing seats:", error);
     setSeats([]);
   }
 
   setLoading(false);
 }, [bus]);
+
 
 
   
