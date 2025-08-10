@@ -14,7 +14,7 @@ useEffect(() => {
 
   try {
     const totalSeats = bus.seats.length;
-    const rows = Math.floor((totalSeats - 5) / 3); // 2 left + 1 right per row
+    const rows = Math.floor((totalSeats - 4) / 3); // 2 left + 1 right per row
     const backStartIndex = rows * 3;
     const seatsCopy = [...bus.seats]; // Clone the seats array
 
@@ -33,8 +33,8 @@ useEffect(() => {
       if (right1) right.push({ ...right1, position: "right" });
     }
 
-    // Last 5 go to the back
-    const backSeats = seatsCopy.slice(backStartIndex, backStartIndex + 5);
+    // Last 4 go to the back
+    const backSeats = seatsCopy.slice(backStartIndex, backStartIndex + 4);
     back = backSeats.map((seat) => ({ ...seat, position: "back" }));
 
     setSeats([...left, ...right, ...back]);
@@ -47,8 +47,6 @@ useEffect(() => {
 }, [bus]);
 
 
-
-  
 
   if (loading) {
     return (

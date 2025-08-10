@@ -4,6 +4,7 @@ const fromLocations = ["Kumasi KNUST Campus", "Obuasi KNUST Campus"];
 
 const destinationLocations = [
   "Accra - Circle",
+  "Accra - Madina",
   "Koforidua",
   "Tema/Ashiaman",
   "Kasoa",

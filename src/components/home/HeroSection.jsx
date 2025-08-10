@@ -31,10 +31,10 @@ const HeroSection = () => {
 
   const Destination = [
   "Accra - Circle",
+  "Accra - Madina",
   "Koforidua",
   "Tema/Ashiaman",
   "Kasoa",
-  "Kumasi - Asafo",
   "Tarkwa",
   "Sunyani",
   "Takoradi/Cape Coast",
