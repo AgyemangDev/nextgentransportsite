@@ -52,31 +52,36 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
       // 2. Setup Paystack payment
       const reference = `NGT_${Date.now()}`;
 
-      const handler = window.PaystackPop.setup({
-        key: 'pk_live_10140e876a8241e1e72aa7c47d03fa82ecd08ca8',
-        email: passengerDetails.email,
-        amount: bus.price * 100,
-        currency: "GHS",
-        reference: reference,
-        metadata: {
-          busId: bus.id,
-          seatId: seat.id,
-          
-          seatNumber: seat.number,
-          name: passengerDetails.name,
-          email: passengerDetails.email,
-          phone: passengerDetails.phone,
-          from,
-          to,
-          departureTime: bus.departureTime,
-        },
-        callback: function (response) {
-          verifyPayment(response.reference);
-        },
-        onClose: function () {
-          alert("Transaction was not completed, window closed.");
-        },
-      });
+// Calculate amount with 1.95% fee
+const baseAmount = bus.price;
+const fee = baseAmount * 0.0195;
+const totalAmount = baseAmount + fee;
+
+const handler = window.PaystackPop.setup({
+  key: 'pk_live_10140e876a8241e1e72aa7c47d03fa82ecd08ca8',
+  email: passengerDetails.email,
+  amount: Math.round(totalAmount * 100), // Paystack expects amount in pesewas
+  currency: "GHS",
+  reference: reference,
+  metadata: {
+    busId: bus.id,
+    seatId: seat.id,
+    seatNumber: seat.number,
+    name: passengerDetails.name,
+    email: passengerDetails.email,
+    phone: passengerDetails.phone,
+    from,
+    to,
+    departureTime: bus.departureTime,
+  },
+  callback: function (response) {
+    verifyPayment(response.reference);
+  },
+  onClose: function () {
+    alert("Transaction was not completed, window closed.");
+  },
+});
+
 
       handler.openIframe();
     } catch (error) {
