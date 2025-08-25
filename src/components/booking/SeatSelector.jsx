@@ -7,6 +7,16 @@ const SeatSelector = ({ bus, selectedSeat, onSeatSelect, nextStep, prevStep }) =
   const [seats, setSeats] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+  // Fire-and-forget ping to wake the backend
+  fetch("https://nextgenbackend-i9ck.onrender.com", {
+    method: "GET",
+    cache: "no-store"
+  }).catch(() => {
+    // Ignore errors, since it's only a warm-up
+  });
+}, []);
+
 useEffect(() => {
   if (!bus || !Array.isArray(bus.seats)) return;
 
