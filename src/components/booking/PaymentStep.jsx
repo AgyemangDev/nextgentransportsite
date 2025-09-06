@@ -58,7 +58,7 @@ const fee = baseAmount * 0.0195;
 const totalAmount = baseAmount + fee;
 
 const handler = window.PaystackPop.setup({
-  key: 'sk_test_06296699d93a3bde19eb8aac3822a5edf61f63c3',
+  key: 'pk_test_f7ca7efd44d73e9d0e5e478a813f8dfe65bf6ebe',
   email: passengerDetails.email,
   amount: Math.round(totalAmount * 100), // Paystack expects amount in pesewas
   currency: "GHS",
