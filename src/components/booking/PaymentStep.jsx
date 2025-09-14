@@ -1,20 +1,37 @@
+// PaymentStep.jsx
 import BookingSummary from "./BookingSummary";
 import { useState } from "react";
 import axios from "axios";
+import { calculateStorageDetails } from "../../../utils/calculateStorageTotal";
 
 const PaymentStep = ({ booking, nextStep, prevStep }) => {
   const [loading, setLoading] = useState(false);
 
+  // --- Calculate full total ---
+  const busFare = booking.bus?.price || 0;
+  const { total: storageTotal } = calculateStorageDetails(
+    booking.storage?.quantities
+  );
+  const baseAmount = busFare + storageTotal;
+
+  // ✅ Service Fee is 2%
+  const serviceFee = baseAmount * 0.02;
+  const grandTotal = baseAmount + serviceFee;
+
   const verifyPayment = async (reference) => {
     try {
-      const verifyRes = await axios.post("https://nextgenbackend-i9ck.onrender.com/api/payment/verify", {
-        reference,
-        bookingData: booking,
-      });
+      const verifyRes = await axios.post(
+        "https://nextgenbackend-i9ck.onrender.com/api/payment/verify",
+        {
+          reference,
+          bookingData: booking,
+          amountPaid: grandTotal,
+        }
+      );
 
       if (verifyRes.data.success) {
         alert("Payment successful and booking confirmed.");
-        nextStep(); // Proceed to the next step
+        nextStep();
       } else {
         alert("Payment succeeded, but booking failed: " + verifyRes.data.message);
       }
@@ -29,19 +46,13 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
     setLoading(true);
 
     try {
-      const {
-        bus,
-        seat,
-        passengerDetails,
-        from,
-        to
-      } = booking;
+      const { bus, seat, passengerDetails, from, to } = booking;
 
       // 1. Check if seat is available
-      const response = await axios.post("https://nextgenbackend-i9ck.onrender.com/api/bus/check-seat", {
-        busId: bus.id,
-        seatId: seat.id,
-      });
+      const response = await axios.post(
+        "https://nextgenbackend-i9ck.onrender.com/api/bus/check-seat",
+        { busId: bus.id, seatId: seat.id }
+      );
 
       if (!response.data.success) {
         alert(response.data.message || "Seat is no longer available.");
@@ -49,39 +60,32 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
         return;
       }
 
-      // 2. Setup Paystack payment
+      // 2. Setup Paystack
       const reference = `NGT_${Date.now()}`;
 
-// Calculate amount with 1.95% fee
-const baseAmount = bus.price;
-const fee = baseAmount * 0.0195;
-const totalAmount = baseAmount + fee;
-
-const handler = window.PaystackPop.setup({
-  key: 'sk_live_5393653341c012340c2d58573e7c6f2894529728',
-  email: passengerDetails.email,
-  amount: Math.round(totalAmount * 100), // Paystack expects amount in pesewas
-  currency: "GHS",
-  reference: reference,
-  metadata: {
-    busId: bus.id,
-    seatId: seat.id,
-    seatNumber: seat.number,
-    name: passengerDetails.name,
-    email: passengerDetails.email,
-    phone: passengerDetails.phone,
-    from,
-    to,
-    departureTime: bus.departureTime,
-  },
-  callback: function (response) {
-    verifyPayment(response.reference);
-  },
-  onClose: function () {
-    alert("Transaction was not completed, window closed.");
-  },
-});
-
+      const handler = window.PaystackPop.setup({
+        key: "pk_test_xxxxxxxx", // ⚠️ use PUBLIC key, not secret key
+        email: passengerDetails.email,
+        amount: Math.round(grandTotal * 100), // Paystack expects pesewas
+        currency: "GHS",
+        reference,
+        metadata: {
+          busId: bus.id,
+          seatId: seat.id,
+          seatNumber: seat.number,
+          name: passengerDetails.name,
+          email: passengerDetails.email,
+          phone: passengerDetails.phone,
+          from,
+          to,
+          departureTime: bus.departureTime,
+          storage: booking.storage?.quantities || [],
+        },
+        callback: (response) => verifyPayment(response.reference),
+        onClose: () => {
+          alert("Transaction was not completed, window closed.");
+        },
+      });
 
       handler.openIframe();
     } catch (error) {
@@ -99,14 +103,15 @@ const handler = window.PaystackPop.setup({
           <h2 className="text-xl font-bold text-[#00205B] mb-4">Make Payment</h2>
 
           <p className="text-gray-600 mb-4 text-sm">
-            Click the button below to make payment. A secured browser window will open — input
-            your Mobile Money number, bank card details, or use Apple Pay. Enter the OTP sent to you
-            to proceed. After successful payment, click "I've completed Payment" to finalize.
+            Click the button below to make payment. A secured browser window will open — input your
+            Mobile Money number, bank card details, or use Apple Pay. Enter the OTP sent to you to
+            proceed. After successful payment, click "I've completed Payment" to finalize.
           </p>
 
           <p className="text-sm text-gray-500 mb-6">
-            Keep the confirmation email from <strong>NextGenTransport</strong> and payment receipt from <strong>Paystack</strong>. It will include your
-            booking number, seat number, and trip information. 
+            Keep the confirmation email from <strong>NextGenTransport</strong> and payment receipt
+            from <strong>Paystack</strong>. It will include your booking number, seat number, and
+            trip information.
           </p>
 
           <div className="flex justify-between mt-6">
@@ -124,16 +129,15 @@ const handler = window.PaystackPop.setup({
                 loading ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
-{loading
-  ? "Processing..."
-  : `Pay ₵${(booking.bus?.price * 1.0195).toFixed(2)}`}
+              {loading ? "Processing..." : `Pay ₵${grandTotal.toFixed(2)}`}
             </button>
           </div>
         </div>
       </div>
 
       <div className="md:col-span-1">
-        <BookingSummary booking={booking} />
+        {/* ✅ Pass calculated totals to summary */}
+        <BookingSummary booking={booking} busFare={busFare} storageTotal={storageTotal} serviceFee={serviceFee} grandTotal={grandTotal} />
       </div>
     </div>
   );

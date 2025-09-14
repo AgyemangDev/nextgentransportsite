@@ -1,10 +1,11 @@
-import { MapPin, Calendar, Users, CreditCard, CheckCircle } from "lucide-react";
+import { MapPin, Calendar, Users, CreditCard, CheckCircle ,Box} from "lucide-react";
 
 const BookingProgressBar = ({ currentStep }) => {
   const steps = [
     { icon: MapPin, label: "Trip Details" },
     { icon: Calendar, label: "Select Bus" },
     { icon: Users, label: "Select Seat" },
+    { icon: Box, label: "Storage" },
     { icon: Users, label: "Passenger" },
     { icon: CreditCard, label: "Payment" },
     { icon: CheckCircle, label: "Confirmation" }

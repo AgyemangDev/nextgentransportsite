@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { MapPin, Calendar, Users, CreditCard, CheckCircle } from "lucide-react";
 import { useBooking } from "../context/BookingContext";
 import TripDetailsStep from "../components/booking/TripDetails";
 import BusSelector from "../components/booking/BusSelector";
@@ -10,6 +9,7 @@ import PaymentStep from "../components/booking/PaymentStep";
 import BookingConfirmation from "../components/booking/BookingConfirmation";
 import BookingProgressBar from "../components/booking/BookingProgressBar";
 import { BusProvider } from "../context/BusContext";
+import StorageSelector from "../components/booking/StorageSelector";
 import { 
   updateFormData, 
   handleFormChange, 
@@ -29,6 +29,7 @@ const BookingPage = () => {
     date: location.state?.date || "",
     bus: null,
     seat: null,
+    storage: { items: [], luggage: null },
     passengerDetails: {
       name: "",
       email: "",
@@ -83,19 +84,25 @@ onSeatSelect={(seat) => handleSeatSelect(seat, setFormData)}
 nextStep={nextStep}
 prevStep={prevStep}
 />,
-    4: <PassengerForm
+4: <StorageSelector
+        selectedItems={formData.storage}
+        onChange={(storage) => setFormData((prev) => ({ ...prev, storage }))}
+        nextStep={nextStep}
+        prevStep={prevStep}
+      />,
+    5: <PassengerForm
          passengerDetails={formData.passengerDetails}
          onChange={(e) => handlePassengerChange(e, setFormData)}
          nextStep={nextStep}
          prevStep={prevStep}
        />,
-    5: <PaymentStep
+    6: <PaymentStep
          booking={formData}
          onPaymentMethodChange={(method) => handlePaymentMethodChange(method, setFormData)}
          nextStep={nextStep}
          prevStep={prevStep}
        />,
-    6: <BookingConfirmation
+    7: <BookingConfirmation
          booking={formData}
        />
   };
