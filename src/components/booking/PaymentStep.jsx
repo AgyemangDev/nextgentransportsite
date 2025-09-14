@@ -64,7 +64,7 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
       const reference = `NGT_${Date.now()}`;
 
       const handler = window.PaystackPop.setup({
-        key: "pk_test_xxxxxxxx", // ⚠️ use PUBLIC key, not secret key
+        key: "pk_test_f7ca7efd44d73e9d0e5e478a813f8dfe65bf6ebe", // ⚠️ use PUBLIC key, not secret key
         email: passengerDetails.email,
         amount: Math.round(grandTotal * 100), // Paystack expects pesewas
         currency: "GHS",

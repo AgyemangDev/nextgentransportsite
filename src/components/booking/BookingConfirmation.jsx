@@ -1,5 +1,4 @@
 import { CheckCircle } from "lucide-react";
-import BookingSummary from "./BookingSummary";
 import { useNavigate } from "react-router-dom";
 
 const BookingConfirmation = ({ booking }) => {
@@ -37,10 +36,7 @@ const BookingConfirmation = ({ booking }) => {
           </div>
         </div>
       </div>
-      
-      <div className="md:col-span-1">
-        <BookingSummary booking={booking} />
-      </div>
+
     </div>
   );
 };

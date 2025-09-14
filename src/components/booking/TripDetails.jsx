@@ -4,13 +4,14 @@ const fromLocations = ["Kumasi KNUST Campus", "Obuasi KNUST Campus"];
 
 const destinationLocations = [
   "Accra - Circle",
-  "Accra - Madina",
-  "Koforidua",
+  "Madina/Adenta",
+  // "Koforidua",
   "Tema/Ashiaman",
   "Kasoa",
-  "Tarkwa",
-  "Sunyani",
-  "Takoradi/Cape Coast",
+  // "Tarkwa",
+  // "Sunyani",
+  // "Takoradi/Cape Coast",
+  "Koftown"
 ];
 
 const TripDetailsStep = ({ formData, handleChange, nextStep }) => {

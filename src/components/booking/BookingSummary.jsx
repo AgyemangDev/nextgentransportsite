@@ -1,12 +1,28 @@
 import { Calendar, MapPin, User } from "lucide-react";
 import { calculateStorageDetails } from "../../../utils/calculateStorageTotal";
 
-const BookingSummary = ({ booking, busFare, storageTotal, serviceFee, grandTotal }) => {
-  // If props not passed, fallback (for safety)
-  const { breakdown } = calculateStorageDetails(booking.storage?.quantities);
+const BookingSummary = ({
+  booking = {},
+  busFare = 0,
+  storageTotal = 0,
+  serviceFee = 0,
+  grandTotal = 0,
+}) => {
+  // Defensive checks
+  const passenger = booking.passengerDetails || {};
+  const seat = booking.seat || {};
+  const bus = booking.bus || {};
+
+  // Storage breakdown
+  const { breakdown } = calculateStorageDetails(booking.storage?.quantities || {});
+
+  // Helper to format safely
+  const formatCurrency = (val) =>
+    typeof val === "number" && !isNaN(val) ? val.toFixed(2) : "0.00";
 
   return (
     <div className="border rounded-lg overflow-hidden">
+      {/* Header */}
       <div className="bg-[#00205B] text-white p-4">
         <h3 className="font-bold text-lg">Booking Summary</h3>
       </div>
@@ -18,7 +34,7 @@ const BookingSummary = ({ booking, busFare, storageTotal, serviceFee, grandTotal
           <div>
             <div className="text-sm text-gray-500">Route</div>
             <div className="font-medium">
-              {booking.from} to {booking.to}
+              {booking.from || "N/A"} to {booking.to || "N/A"}
             </div>
           </div>
         </div>
@@ -28,7 +44,7 @@ const BookingSummary = ({ booking, busFare, storageTotal, serviceFee, grandTotal
           <Calendar size={18} className="text-[#00205B] mr-3 mt-0.5" />
           <div>
             <div className="text-sm text-gray-500">Travel Date & Time</div>
-            <div className="text-sm">{booking.bus?.departureTime}</div>
+            <div className="text-sm">{bus.departureTime || "N/A"}</div>
           </div>
         </div>
 
@@ -37,10 +53,10 @@ const BookingSummary = ({ booking, busFare, storageTotal, serviceFee, grandTotal
           <User size={18} className="text-[#00205B] mr-3 mt-0.5" />
           <div>
             <div className="text-sm text-gray-500">Passenger</div>
-            <div className="font-medium">{booking.passengerDetails.name}</div>
-            <div className="text-sm">{booking.passengerDetails.email}</div>
-            <div className="text-sm">{booking.passengerDetails.phone}</div>
-            <div className="text-sm">Seat {booking.seat?.number}</div>
+            <div className="font-medium">{passenger.name || "N/A"}</div>
+            <div className="text-sm">{passenger.email || "N/A"}</div>
+            <div className="text-sm">{passenger.phone || "N/A"}</div>
+            <div className="text-sm">Seat {seat.number || "N/A"}</div>
           </div>
         </div>
 
@@ -48,7 +64,7 @@ const BookingSummary = ({ booking, busFare, storageTotal, serviceFee, grandTotal
         <div className="border-t pt-4 mt-4 space-y-2">
           <div className="flex justify-between">
             <span>Bus Fare</span>
-            <span>GHC {busFare.toFixed(2)}</span>
+            <span>GHC {formatCurrency(busFare)}</span>
           </div>
 
           {breakdown.length > 0 && (
@@ -56,32 +72,27 @@ const BookingSummary = ({ booking, busFare, storageTotal, serviceFee, grandTotal
               <div className="text-sm text-gray-500 mb-1">Storage Items</div>
               {breakdown.map((item) => (
                 <div key={item.name} className="flex justify-between text-sm">
-                  <span>{item.name} × {item.qty}</span>
-                  <span>GHC {item.cost.toFixed(2)}</span>
+                  <span>
+                    {item.name} × {item.qty}
+                  </span>
+                  <span>GHC {formatCurrency(item.cost)}</span>
                 </div>
               ))}
               <div className="flex justify-between font-medium mt-1">
                 <span>Total Storage</span>
-                <span>GHC {storageTotal.toFixed(2)}</span>
+                <span>GHC {formatCurrency(storageTotal)}</span>
               </div>
             </div>
           )}
 
-<div className="bg-gray-100 p-4 rounded-md mb-4 text-sm">
-  <h3 className="font-semibold">Debug Booking Info</h3>
-  <pre className="whitespace-pre-wrap">
-    {JSON.stringify(booking, null, 2)}
-  </pre>
-</div>
-
           <div className="flex justify-between text-sm text-gray-500">
             <span>Service Fee (1.5%)</span>
-            <span>GHC {serviceFee.toFixed(2)}</span>
+            <span>GHC {formatCurrency(serviceFee)}</span>
           </div>
 
           <div className="flex justify-between font-semibold border-t pt-2 mt-2">
             <span>Grand Total</span>
-            <span>GHC {grandTotal.toFixed(2)}</span>
+            <span>GHC {formatCurrency(grandTotal)}</span>
           </div>
         </div>
       </div>
