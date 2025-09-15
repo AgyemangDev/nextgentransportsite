@@ -46,8 +46,8 @@ const StorageSelector = ({ selectedItems, onChange, nextStep, prevStep }) => {
     <div className="max-w-4xl mx-auto p-4 bg-gray-50 min-h-screen">
       {/* Header */}
       <div className="mb-6 text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-1">Choose Your Storage Items</h1>
-        <p className="text-gray-600 text-sm">Select the items you'd like to store with us</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-1">Select your luggage item</h1>
+        <p className="text-gray-600 text-sm">Select the items you'd like to carry along</p>
       </div>
 
       {/* Items Grid: 2 items per row on mobile, 3 on md, 4 on lg */}
