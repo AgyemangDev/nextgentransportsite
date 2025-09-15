@@ -24,21 +24,22 @@ const HeroSection = () => {
     navigate("/booking", { state: formData });
   };
 
-  const locations = [
+  const Destination = [
     "Kumasi KNUST Campus",
     "Obuasi KNUST Campus",
   ];
 
-  const Destination = [
+  const  locations = [
   "Accra - Circle",
-  "Accra - Madina",
-  "Koforidua",
+  "Madina/Adenta",
+  // "Koforidua",
   "Tema/Ashiaman",
   "Kasoa",
-  "Tarkwa",
-  "Sunyani",
-  "Takoradi/Cape Coast",
-  ];
+  // "Tarkwa",
+  // "Sunyani",
+  // "Takoradi/Cape Coast",
+  "Koftown"
+];;
 
   return (
     <section className="relative bg-[#00205B] text-white">

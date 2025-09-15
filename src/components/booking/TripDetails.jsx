@@ -1,8 +1,8 @@
 import { MapPin } from "lucide-react";
 
-const fromLocations = ["Kumasi KNUST Campus", "Obuasi KNUST Campus"];
+const destinationLocations = ["Kumasi KNUST Campus", "Obuasi KNUST Campus"];
 
-const destinationLocations = [
+const  fromLocations = [
   "Accra - Circle",
   "Madina/Adenta",
   // "Koforidua",

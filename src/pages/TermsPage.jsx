@@ -216,7 +216,7 @@ const TermsPage = () => {
           <br />
           Kumasi, Ghana
           <br />
-          Email: nextgentransport@gmail.com
+          nextgentransportservice@gmail.com
           <br />
           Phone: +233 55 937 4829
         </address>

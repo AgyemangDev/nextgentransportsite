@@ -38,7 +38,7 @@ const testimonials = [
 },
   {
     content:
-      "I be fresher from Accra. First time I dey come KNUST, the bus carry we straight go Unity Hall gate. No confusion, no stress. Booking process be simple.",
+      "I be fresher from Accra. First time I dey come KNUST, the bus carry we straight go Parade grounds, close to Repu, Indece den Queens hall. No confusion, no stress. Booking process be simple.",
     author: "Emmanuel Adjei – Law, Level 100",
   },
 ];

@@ -63,10 +63,10 @@ const ContactPage = () => {
             Our customer service team is available 24/7
           </p>
           <a
-            href="tel:+233123456789"
+            href="tel:0501969813"
             className="text-[#00205B] font-medium hover:underline"
           >
-            +233 123 456 789
+            050 196 9813
           </a>
         </div>
 
@@ -79,10 +79,10 @@ const ContactPage = () => {
             Send us an email and we'll respond as soon as possible
           </p>
           <a
-            href="mailto:nextgentransportservices@gmail.com"
+            href="mailto:nextgentransportservice@gmail.com"
             className="text-[#00205B] font-medium hover:underline"
           >
-            nextgentransportservices@gmail.com
+            nextgentransportservice@gmail.com
           </a>
         </div>
 
