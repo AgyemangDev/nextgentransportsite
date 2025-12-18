@@ -64,26 +64,28 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
       const reference = `NGT_${Date.now()}`;
 
       const handler = window.PaystackPop.setup({
-        key: "pk_test_f7ca7efd44d73e9d0e5e478a813f8dfe65bf6ebe", // ⚠️ use PUBLIC key, not secret key
+        key: "pk_test_90288d28aafc20661f04212a20c140c97a0f3ca9",
         email: passengerDetails.email,
         amount: Math.round(grandTotal * 100), // Paystack expects pesewas
         currency: "GHS",
         reference,
         metadata: {
+          // ✅ Backend expects these exact fields
           busId: bus.id,
           seatId: seat.id,
-          seatNumber: seat.number,
           name: passengerDetails.name,
           email: passengerDetails.email,
           phone: passengerDetails.phone,
-          from,
-          to,
+          from: from,
+          to: to,
           departureTime: bus.departureTime,
-          storage: booking.storage?.quantities || [],
+          // ✅ Convert storage to simple object, not array
+          storage: booking.storage?.quantities || {},
         },
         callback: (response) => verifyPayment(response.reference),
         onClose: () => {
           alert("Transaction was not completed, window closed.");
+          setLoading(false);
         },
       });
 
@@ -91,7 +93,6 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
     } catch (error) {
       console.error("Payment failed:", error);
       alert("Payment failed. Please try again.");
-    } finally {
       setLoading(false);
     }
   };
@@ -136,8 +137,13 @@ const PaymentStep = ({ booking, nextStep, prevStep }) => {
       </div>
 
       <div className="md:col-span-1">
-        {/* ✅ Pass calculated totals to summary */}
-        <BookingSummary booking={booking} busFare={busFare} storageTotal={storageTotal} serviceFee={serviceFee} grandTotal={grandTotal} />
+        <BookingSummary 
+          booking={booking} 
+          busFare={busFare} 
+          storageTotal={storageTotal} 
+          serviceFee={serviceFee} 
+          grandTotal={grandTotal} 
+        />
       </div>
     </div>
   );

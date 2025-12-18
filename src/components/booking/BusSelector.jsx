@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { Clock, Users, Wifi, Coffee } from "lucide-react";
 import { useBuses } from "../../context/BusContext";
 
-const busImage = "https://a1carsrental.com/wp-content/uploads/45-seat-coach-bus-rental-accra-ghana-1c-7.jpg";
 
 const BusSelector = ({ from, to, selectedBus, onBusSelect, nextStep, prevStep }) => {
   const { buses, loading } = useBuses();
