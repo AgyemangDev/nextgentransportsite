@@ -59,7 +59,7 @@ const StorageSelector = ({ selectedItems, onChange, nextStep, prevStep }) => {
           Select your luggage & storage items
         </h1>
         <p className="text-gray-600 text-sm">
-          Free 25KG for luggage. Extra weight is charged during onboarding.
+          Free 40KG for luggage. Extra weight is charged during onboarding.
         </p>
       </div>
 
@@ -101,7 +101,7 @@ const StorageSelector = ({ selectedItems, onChange, nextStep, prevStep }) => {
                 <div className="mb-2">
                   {isLuggage ? (
                     <p className="text-xs md:text-sm font-medium text-blue-600">
-                      Free 25KG for luggage handling.
+                      Free 40GK for luggage handling.
                       <br />
                       Extra luggage cost charged during onboarding.
                     </p>

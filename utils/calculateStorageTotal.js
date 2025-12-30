@@ -29,7 +29,7 @@ export const calculateStorageDetails = (quantities = {}) => {
       name: "Luggage",
       qty: luggageQty,
       cost: handlingFee,
-      note: "₵10 handling fee • 25kg free • excess charged onboard",
+      note: "₵10 handling fee • 40KG free • excess charged onboard",
     });
 
     total += handlingFee;
